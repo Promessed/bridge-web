@@ -38,4 +38,30 @@ router.post('/logout', auth, async(req, res)=>{
         res.status(500).send()
     }
 })
+
+// Retrieving a single user
+async function getUser(req, res, next){
+let user
+try {
+    user = await User.findById(req.params.id)
+    if(user==null){
+    res.status(404).json({message : 'cannot find the user'})
+    }
+} catch (error) {
+    res.status(500).json({message:error.message})
+}
+res.user = user
+next()
+}
+
+// Retrieving all user
+
+router.get('/', async(req, res)=>{
+try {
+    const users = await User.find()
+    res.send(users)
+} catch (error) {
+    res.status(500).json({message: error.message})
+}
+})
 module.exports = router
