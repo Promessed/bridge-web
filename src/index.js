@@ -17,6 +17,9 @@ app.use('/users', userRouter)
 const jobRouter = require('../routes/jobs')
 app.use('/jobs', jobRouter)
 
+const employerRouter = require('../routes/employers')
+app.use('/employers', employerRouter)
+
 app.listen(port, ()=>{
     console.log(`The server is up and running on ${port}!`)
 })

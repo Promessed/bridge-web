@@ -1,5 +1,4 @@
 const express = require('express')
-const { __esModule } = require('validator/lib/isAlpha')
 const router = express.Router()
 const Job = require('../models/Job')
 
