@@ -64,4 +64,33 @@ try {
     res.status(500).json({message: error.message})
 }
 })
+
+// updating a user
+router.patch('/:id', getUser, async(req, res)=>{
+    if(req.body.username != null){
+        res.user.username = req.body.username
+    }
+    if(req.body.email != null){
+        res.user.email = req.body.email
+    }
+    if(req.body.password != null){
+        res.user.password = req.body.password
+    }
+    try {
+        const user = await res.user.save()
+        res.json(user)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+//delete a user
+router.delete('/:id', getUser, async(req, res)=>{
+    try {
+        res.user.remove()
+        res.json({message: 'User successfully deleted'})
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+})
 module.exports = router
