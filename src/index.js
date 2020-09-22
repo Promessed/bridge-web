@@ -14,6 +14,9 @@ app.use(express.json())
 const userRouter = require('../routes/users')
 app.use('/users', userRouter)
 
+const jobRouter = require('../routes/jobs')
+app.use('/jobs', jobRouter)
+
 app.listen(port, ()=>{
     console.log(`The server is up and running on ${port}!`)
 })

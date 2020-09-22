@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env nodemon src/index.js"
+    "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env nodemon src/index.js",
+    "database":"/Users/Admin/mongodb/bin/mongod.exe --dbpath= /Users/Admin/mongodb-data"
   },
   "author": "",
   "license": "ISC",

@@ -1,3 +1,4 @@
+const { text } = require('express')
 const mongoose = require('mongoose')
 
 const jobSchema = mongoose.Schema({
@@ -8,7 +9,7 @@ const jobSchema = mongoose.Schema({
         unique:true
     },
     description:{
-        type:text,
+        type:String,
         required:true,
         unique:true
     },
@@ -18,17 +19,18 @@ const jobSchema = mongoose.Schema({
      },
      startOn:{
          type:Date,
-         required:true,
+         required:false,
      },
      endOn:{
          type:Date,
-         required:true
+         required:false
      },
      budget:{
          type:Number,
          required:true
      },
-     timestamps:true,
+},{
+    timestamps:true
 })
 
 const Job = mongoose.model('Job', jobSchema)
