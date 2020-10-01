@@ -1,5 +1,5 @@
-const express = require ('express')
-const path = require ('path')
+const express = require('express')
+const path = require('path')
 require('../db/mongoose')
 require('dotenv').config
 
@@ -20,6 +20,9 @@ app.use('/jobs', jobRouter)
 const employerRouter = require('../routes/employers')
 app.use('/employers', employerRouter)
 
-app.listen(port, ()=>{
+const stackRouter = require('../routes/stacks')
+app.use('/stacks', stackRouter)
+
+app.listen(port, () => {
     console.log(`The server is up and running on ${port}!`)
 })

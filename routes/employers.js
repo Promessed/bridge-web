@@ -4,7 +4,7 @@ const Employer = require('../models/Employer')
 
 // Create an employer
 
-router.post('/', async(req, res)=>{
+router.post('/', async (req, res) => {
     const employer = new Employer(req.body)
     try {
         await employer.save()
@@ -16,27 +16,27 @@ router.post('/', async(req, res)=>{
 
 // get a single employer
 
-async function getEmployer(req, res, next){
+async function getEmployer(req, res, next) {
     let employer
     try {
         employer = await Employer.findById(req.params.id)
-        if(employer == null){
-            return res.status(400).json({message: 'cannot find that employer'})
+        if (employer == null) {
+            return res.status(400).json({ message: 'cannot find that employer' })
         }
     } catch (error) {
-        return res.status(400).json({message: error.message})
+        return res.status(400).json({ message: error.message })
     }
     res.employer = employer
     next()
 }
 
 // get all employers
-router.get('/', async(req, res)=>{
+router.get('/', async (req, res) => {
     try {
         const employers = Employer.find()
         res.status(200).send(employers)
     } catch (error) {
-        res.status(500).json({message: error.message})
+        res.status(500).json({ message: error.message })
     }
 })
 
