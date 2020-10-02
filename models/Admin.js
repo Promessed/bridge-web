@@ -1,9 +1,9 @@
 const mongoose = require('../db/mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
-const jw = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
-const adminSchema = new mongoose.Schema({
+const adminSchema = mongoose.Schema({
     username: {
         type: String,
         required: true,
