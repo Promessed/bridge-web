@@ -3,7 +3,7 @@ const Employer = require('../models/Employer')
 
 const authEmployer = async (req, res, next) => {
     try {
-        const token = req.heaeder('Authorization').replace('Bearer ', '')
+        const token = req.header('Authorization').replace('Bearer ', '')
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
         const employer = await Employer.findOne({ _id: decoded._id, 'tokens.token': token })
         if (!employer) {

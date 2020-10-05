@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env nodemon src/index.js",
-    "database":"/Users/Admin/mongodb/bin/mongod.exe --dbpath= /Users/Admin/mongodb-data"
+    "database": "/Users/Admin/mongodb/bin/mongod.exe --dbpath= /Users/Admin/mongodb-data"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +20,8 @@
     "validator": "^13.1.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "jest": "^26.5.0",
+    "nodemon": "^2.0.4",
+    "supertest": "^5.0.0"
   }
 }

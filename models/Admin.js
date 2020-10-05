@@ -3,7 +3,7 @@ const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const adminSchema = mongoose.Schema({
+const adminSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -52,6 +52,19 @@ adminSchema.methods.generateAuthToken = async function () {
     admin.tokens = admin.tokens.concat({ token })
     await admin.save()
     return token
+}
+
+// Check if the user exists
+userSchema.statics.findByCredentials = async (email, password) => {
+    const admin = await Admin.findOne({ email })
+    if (!admin) {
+        throw new Error('Unable to login')
+    }
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) {
+        throw new Error('Unable to login')
+    }
+    return admin
 }
 
 const Admin = mongoose.model('Admin', adminSchema)

@@ -3,7 +3,7 @@ const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jw = require('jsonwebtoken')
 
-const employerSchema = mongoose.Schema({
+const employerSchema = new  mongoose.Schema({
     username: {
         type: String,
         unique: true,
@@ -65,6 +65,19 @@ employerSchema.methods.generateAuthToken = async function () {
     employer.tokens = employer.tokens.concat({ token })
     await employer.save()
     return token
+}
+
+// Check if the user exists
+userSchema.statics.findByCredentials = async (email, password) => {
+    const employer = await Employer.findOne({ email })
+    if (!employer) {
+        throw new Error('Unable to login')
+    }
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) {
+        throw new Error('Unable to login')
+    }
+    return employer
 }
 
 const Employer = mongoose.model('Employer', employerSchema)
