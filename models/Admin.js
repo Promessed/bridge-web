@@ -1,14 +1,13 @@
-const mongoose = require('mongoose')
+const mongoose = require('../db/mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const userSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
         trim: true,
-        unique: true
     },
     email: {
         type: String,
@@ -37,39 +36,36 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 })
 
-//Hashing the plane password
-userSchema.pre('save', async function (next) {
-    const user = this
-    if (user.isModified('password')) {
-        user.password = await bcrypt.hash(user.password, 8)
+// hash the plane password
+adminSchema.pre('save', async function (next) {
+    const admin = this
+    if (admin.isModified('password')) {
+        admin.password = await bcrypt.hash(admin.password, 8)
     }
     next()
 })
 
-// Generate Auth token
-userSchema.methods.generateAuthToken = async function () {
-    const user = this
-    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET)
-    user.tokens = user.tokens.concat({ token })
-    await user.save()
+//Generate Auth token
+adminSchema.methods.generateAuthToken = async function () {
+    const admin = this
+    const token = jwt.sign({ _id: admin._id.toString() }, process.env.JWT_SECRET)
+    admin.tokens = admin.tokens.concat({ token })
+    await admin.save()
     return token
 }
 
 // Check if the user exists
 userSchema.statics.findByCredentials = async (email, password) => {
-    const user = await User.findOne({ email })
-    if (!user) {
+    const admin = await Admin.findOne({ email })
+    if (!admin) {
         throw new Error('Unable to login')
     }
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
         throw new Error('Unable to login')
     }
-    return user
+    return admin
 }
 
-
-
-
-const User = mongoose.model('User', userSchema)
-module.exports = User
+const Admin = mongoose.model('Admin', adminSchema)
+module.exports = Admin
