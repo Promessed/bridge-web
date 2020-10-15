@@ -9,9 +9,10 @@ router.post('/', async (req, res) => {
     const employer = new Employer(req.body)
     try {
         await employer.save()
-        res.send(employer)
+        const token = await employer.generateAuthToken()
+        res.status(201).send({employer, token})
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).json({ message: error.message })
     }
 })
 
@@ -49,7 +50,7 @@ router.post('/login', async (req, res) => {
         const token = await employer.generateAuthToken()
         res.send({ employer, token })
     } catch (error) {
-        res.status(400).send()
+        res.status(400).json({message: error.message})
     }
 })
 

@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
-const { text } = require('express')
 
-const stackSchema = mongoose.Schema({
+const stackSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -9,12 +8,12 @@ const stackSchema = mongoose.Schema({
         unique: true,
     },
     description: {
-        type: text,
+        type: String,
         required: true,
         unique: true
     },
 }, {
-    timestamps = true
+    timestamps : true
 })
 
 const Stack = mongoose.model('Stack', stackSchema)

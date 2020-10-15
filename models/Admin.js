@@ -55,7 +55,7 @@ adminSchema.methods.generateAuthToken = async function () {
 }
 
 // Check if the user exists
-userSchema.statics.findByCredentials = async (email, password) => {
+adminSchema.statics.findByCredentials = async (email, password) => {
     const admin = await Admin.findOne({ email })
     if (!admin) {
         throw new Error('Unable to login')

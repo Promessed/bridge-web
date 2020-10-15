@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env nodemon src/index.js",
-    "database": "/Users/Admin/mongodb/bin/mongod.exe --dbpath= /Users/Admin/mongodb-data"
+    "database": "/Users/Admin/mongodb/bin/mongod.exe --dbpath= /Users/Admin/mongodb-data",
+    "test": "./node_modules/.bin/env-cmd -f ./config/test.env jest --watch"
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +20,14 @@
     "mongoose": "^5.10.5",
     "validator": "^13.1.1"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "jest": "^26.5.0",
     "nodemon": "^2.0.4",
     "supertest": "^5.0.0"
