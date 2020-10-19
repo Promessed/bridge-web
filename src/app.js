@@ -20,6 +20,9 @@ app.use('/jobs', jobRouter)
 const employerRouter = require('../routes/employers')
 app.use('/employers', employerRouter)
 
+const adminRouter = require('../routes/admins')
+app.use('/admins', adminRouter)
+
 // const stackRouter = require('../routes/stacks')
 // app.use('/stacks', stackRouter)
 
