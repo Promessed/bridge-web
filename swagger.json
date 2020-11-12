@@ -1,0 +1,94 @@
+    
+{
+    "swagger": "2.0",
+    "info": {
+    "version": "1.0.0", 
+    "title": "Bridge Project",
+    "description": "My Bridge Project Application API",
+    "license": {
+    "name": "MIT",
+    "url": "https://opensource.org/licenses/MIT"
+    }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+    {
+    "name": "Admins",
+    "description": "API for admins in the system",
+    "paths":{
+        "/admins":{
+            "get":{
+                "tags":[
+                    "Admins"
+                ],
+                "summary":"Get all admins",
+                "responses":{
+                    "200":{
+                        "description":"OK",
+                        "schema":{
+                            "$ref":"#/definitions/Admins"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+    "Admin":{
+        "required":[
+       "username",
+       "email",
+       "password"
+        ],
+        "properties":{
+            "username":{
+                "type":"string",
+                "trim":true
+            },
+            "email":{
+                "type":"string",
+                "trim":true,
+                "lowercase":true
+            },
+            "password":{
+                "type":"string",
+                "minlength":8
+            }
+        }
+    },
+    "Admins":{
+        "type":"array",
+        "$ref":"#/definitions/Admin"
+    }
+    }
+    },
+    
+    {
+    "name":"Employers",
+    "description":"API for employers in the system"
+    },
+    {
+    "name":"Jobs",
+    "description":"API for jobs in the system"
+    },
+    {
+    "name":"Stacks",
+    "description":"API for stacks in the system"
+    },
+    {
+    "name":"Users",
+    "description":"API for users in the system"
+    }
+    ],
+    "schemes": [
+    "http"
+    ],
+    "consumes": [
+    "application/json"
+    ],
+    "produces": [
+    "application/json"
+    ]
+    }
+    
