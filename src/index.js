@@ -1,28 +1,43 @@
-const express = require('express')
-const path = require('path')
-require('../db/mongoose')
-require('dotenv').config
-
-
-const app = express()
+const app = require('./app')
+const swaggerUi = require('swagger-ui-express')
+const swaggerJsdoc = require('swagger-jsdoc')
+const swaggerDocument = require('../swagger.json')
 const port = process.env.PORT || 3000
-const publicDirectoryPath = path.join(__dirname, '../public')
 
-app.use(express.static(publicDirectoryPath))
-app.use(express.json())
-
-const userRouter = require('../routes/users')
-app.use('/users', userRouter)
-
-const jobRouter = require('../routes/jobs')
-app.use('/jobs', jobRouter)
-
-const employerRouter = require('../routes/employers')
-app.use('/employers', employerRouter)
-
-const stackRouter = require('../routes/stacks')
-app.use('/stacks', stackRouter)
-
+const options = {
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: "Bridge API with Swagger",
+        version: "0.1.0",
+        description:
+          "This is a simple CRUD API application made with Express and documented with Swagger",
+        license: {
+          name: "MIT",
+          url: "https://spdx.org/licenses/MIT.html",
+        },
+        contact: {
+          name: "Octan Group",
+          url: "https://octan.group",
+          email: "hello@octan.group",
+        },
+      },
+      servers: [
+        {
+          url: "http://localhost:3000/admins",
+        },
+      ],
+    },
+    apis: ["../models/admins"],
+  };
+  
+  const specs = swaggerJsdoc(options);
+  app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(specs, { explorer: true })
+  );
+//app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { explorer: true }))
 app.listen(port, () => {
     console.log(`The server is up and running on ${port}!`)
 })
